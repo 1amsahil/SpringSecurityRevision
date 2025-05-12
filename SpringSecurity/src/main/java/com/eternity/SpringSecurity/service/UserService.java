@@ -29,8 +29,8 @@ public class UserService {
         return repo.findAll();
     }
 
-    // Add User
-    public Users addUser(Users user)
+    // Register User
+    public Users registerUser(Users user)
     {
         user.setPassword(encoder.encode(user.getPassword()));
         repo.save(user);
