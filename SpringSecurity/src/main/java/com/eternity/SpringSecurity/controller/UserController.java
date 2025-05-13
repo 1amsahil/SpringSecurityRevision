@@ -1,6 +1,7 @@
 package com.eternity.SpringSecurity.controller;
 
 import com.eternity.SpringSecurity.model.Users;
+import com.eternity.SpringSecurity.service.JWTService;
 import com.eternity.SpringSecurity.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,6 +20,9 @@ public class UserController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JWTService jwtService;
 
     @GetMapping("user/{id}")
     public Optional<Users> getUser(@PathVariable int id)
@@ -58,7 +62,7 @@ public class UserController {
 
         if(authentication.isAuthenticated())
         {
-            return "Success";
+            return jwtService.generateToken(user.getUsername());
         }
         return "Login Failed";
     }
